@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import sinon from 'sinon-sandbox';
 import { shallow } from 'enzyme';
 import moment from 'moment';
+import raf from 'raf';
 
 import { BLOCKED_MODIFIER } from '../../src/constants';
 import CustomizableCalendarDay, { PureCustomizableCalendarDay } from '../../src/components/CustomizableCalendarDay';
@@ -62,6 +63,8 @@ describe('CustomizableCalendarDay', () => {
         phrases.chooseAvailableDate = sinon.stub().returns('chooseAvailableDate text');
         phrases.dateIsSelected = sinon.stub().returns('dateIsSelected text');
         phrases.dateIsUnavailable = sinon.stub().returns('dateIsUnavailable text');
+        phrases.dateIsSelectedAsStartDate = sinon.stub().returns('dateIsSelectedAsStartDate text');
+        phrases.dateIsSelectedAsEndDate = sinon.stub().returns('dateIsSelectedAsEndDate text');
       });
 
       it('is formatted with the chooseAvailableDate phrase function when day is available', () => {
@@ -79,21 +82,45 @@ describe('CustomizableCalendarDay', () => {
       });
 
       it('is formatted with the dateIsSelected phrase function when day is selected', () => {
-        const selectedModifiers = new Set(['selected', 'selected-start', 'selected-end']);
+        const modifiers = new Set(['selected']);
 
-        selectedModifiers.forEach((selectedModifier) => {
-          const modifiers = new Set([selectedModifier]);
+        const wrapper = shallow((
+          <CustomizableCalendarDay
+            modifiers={modifiers}
+            phrases={phrases}
+            day={day}
+          />
+        )).dive();
 
-          const wrapper = shallow((
-            <CustomizableCalendarDay
-              modifiers={modifiers}
-              phrases={phrases}
-              day={day}
-            />
-          )).dive();
+        expect(wrapper.prop('aria-label')).to.equal('dateIsSelected text');
+      });
 
-          expect(wrapper.prop('aria-label')).to.equal('dateIsSelected text');
-        });
+      it('is formatted with the dateIsSelectedAsStartDate phrase function when day is selected as the start date', () => {
+        const modifiers = new Set().add(BLOCKED_MODIFIER).add('selected-start');
+
+        const wrapper = shallow((
+          <CustomizableCalendarDay
+            modifiers={modifiers}
+            phrases={phrases}
+            day={day}
+          />
+        )).dive();
+
+        expect(wrapper.prop('aria-label')).to.equal('dateIsSelectedAsStartDate text');
+      });
+
+      it('is formatted with the dateIsSelectedAsEndDate phrase function when day is selected as the end date', () => {
+        const modifiers = new Set().add(BLOCKED_MODIFIER).add('selected-end');
+
+        const wrapper = shallow((
+          <CustomizableCalendarDay
+            modifiers={modifiers}
+            phrases={phrases}
+            day={day}
+          />
+        )).dive();
+
+        expect(wrapper.prop('aria-label')).to.equal('dateIsSelectedAsEndDate text');
       });
 
       it('is formatted with the dateIsUnavailable phrase function when day is not available', () => {
@@ -160,6 +187,23 @@ describe('CustomizableCalendarDay', () => {
       expect(wrapper.is('td')).to.equal(true);
       expect(wrapper.children()).to.have.lengthOf(0);
       expect(wrapper.props()).to.eql({});
+    });
+  });
+
+  describe('#componentDidUpdate', () => {
+    it('focuses buttonRef after a delay when isFocused, tabIndex is 0, and tabIndex was not 0', () => {
+      const wrapper = shallow(<CustomizableCalendarDay isFocused tabIndex={0} />).dive();
+      const focus = sinon.spy();
+      wrapper.instance().buttonRef = { focus };
+      wrapper.instance().componentDidUpdate({ isFocused: true, tabIndex: -1 });
+      expect(focus.callCount).to.eq(0);
+
+      return new Promise((resolve) => {
+        raf(() => {
+          expect(focus.callCount).to.eq(1);
+          resolve();
+        });
+      });
     });
   });
 

@@ -4,6 +4,79 @@
 - []  ([#](https://github.com/airbnb/react-dates/pull/))
 -->
 
+## 20.2.5
+- [fix] Defer day focusing until next animation frame ([#1707](https://github.com/airbnb/react-dates/pull/1707))
+- [fix] Fix startDate style (@mmarkelov, [#1710](https://github.com/airbnb/react-dates/pull/1710))
+- [fix] Pass correct props to SingleDatePicker on close (@AlokTakshak, [#1678](https://github.com/airbnb/react-dates/pull/1678))
+- [dev] Update blocked navigation (min/maxDate) stories (@ianduvall, [#1598](https://github.com/airbnb/react-dates/pull/1598))
+- [dev] Add positioning to custom navigation in stories (@dougmacknz, [#1573](https://github.com/airbnb/react-dates/pull/1573))
+- [dev] Update karma 3 → 4, mocha 3 → 6, nyc 12 → 14, sinon 6 → 7, eslint 5 → 6 ([#1713](https://github.com/airbnb/react-dates/pull/1713), [#1712](https://github.com/airbnb/react-dates/pull/1713))
+
+## 20.2.4
+- [fix] Replace react-addons-shallow-compare with enzyme-shallow-equal (bf7e3347702f)
+- [fix] Optimize SVG assets ([#1690](https://github.com/airbnb/react-dates/pull/1690))
+- [fix] Update babel-preset-airbnb 3.2.1 -> 4.0.0 ([#1692](https://github.com/airbnb/react-dates/pull/1692))
+
+## 20.2.3
+- [fix] Add guard for undefined objects in deleteModifier ([#1687](https://github.com/airbnb/react-dates/pull/1687))
+- [dev] Update Storybook from v4 to v5 ([@trotzig](https://github.com/trotzig) [#1673](https://github.com/airbnb/react-dates/pull/1673))
+
+## 20.2.2
+- [fix] Add guard for undefined objects in addModifier ([#1667](https://github.com/airbnb/react-dates/pull/1667))
+
+## 20.2.1
+- [fix] Compile classes in loose mode ([#1655](https://github.com/airbnb/react-dates/pull/1655))
+- [fix] Performance optimizations ([#1656](https://github.com/airbnb/react-dates/pull/1656), [#1657](https://github.com/airbnb/react-dates/pull/1657), [#1659](https://github.com/airbnb/react-dates/pull/1659), [#1661](https://github.com/airbnb/react-dates/pull/1661), [#1662](https://github.com/airbnb/react-dates/pull/1662), and [#1663](https://github.com/airbnb/react-dates/pull/1663))
+- [docs] Add `initialVisibleMonth` to `DayPickerRangeController` in readme ([@AlokTakshak](https://github.com/AlokTakshak) [1652](https://github.com/airbnb/react-dates/pull/1652))
+
+## 20.2.0
+- [fix] Fix date selection in the SDP ([#1530](https://github.com/airbnb/react-dates/pull/1530))
+- [new] Add explicit aria label props ([#1594](https://github.com/airbnb/react-dates/pull/1594))
+
+## 20.1.0
+- [new] Add `renderKeyboardShortcutsButton` prop ([#1576](https://github.com/airbnb/react-dates/pull/1576))
+
+## 20.0.0
+- [breaking] Omit tabindex prop from calendar navigation buttons when custom buttons are supplied ([#1563](https://github.com/airbnb/react-dates/pull/1563))
+- [new] Add hovered-start-blocked-minimun-nights and hovered-start-first-possible-end modifiers ([#1547](https://github.com/airbnb/react-dates/pull/1547))
+- [fix] clearTimeout added for the setCalendarMonthGridHeight timeout ([#1468](https://github.com/airbnb/react-dates/pull/1468))
+- [fix] Remove default styles for the last-in-range modifier ([#1538](https://github.com/airbnb/react-dates/pull/1538))
+
+## 19.0.4
+- [fix] Added `selected` aria label to dates in the selected range ([#1555](https://github.com/airbnb/react-dates/pull/1555))
+
+## 19.0.3
+- [fix] Fix date selection in the SDP ([#1540](https://github.com/airbnb/react-dates/pull/1540))
+
+## 19.0.2
+- no changes; extraneous publish
+
+## 19.0.1
+- [fix] Fix single date picker not responding to input ([#1533](https://github.com/airbnb/react-dates/pull/1533))
+- [fix] Fixes the focus out event in IE11 ([#1524](https://github.com/airbnb/react-dates/pull/1524))
+
+## 19.0.0
+- [breaking] Call `onDatesChange` before `onFocusChange` in the DRP ([#1525](https://github.com/airbnb/react-dates/pull/1525))
+
+## 18.5.0
+- [fix] Add `aria-disabled` attribute to the (Customizable)CalendarDay ([#1521](https://github.com/airbnb/react-dates/pull/1521))
+- [new] Add `startDateOffset` and `endDateOffset` props to the DRP ([#1252](https://github.com/airbnb/react-dates/pull/1252))
+
+## 18.4.1
+- [fix] Make DRP and SDP calendars tabbable from the inputs ([#1499](https://github.com/airbnb/react-dates/pull/1499))
+
+## 18.4.0
+- [new] Clarify VoiceOver text for dates selected as start-date and end-date ([#1501](https://github.com/airbnb/react-dates/pull/1501))
+
+## 18.3.1
+- [fix][RTL] Fix the SDP and DRP noflip util function ([#1492](https://github.com/airbnb/react-dates/pull/1492))
+
+## 18.3.0
+- [fix] Update the SDP and DRP to be compatible with `react-with-direction` ([#1482](https://github.com/airbnb/react-dates/pull/1482))
+- [new] Add `minDate` and `maxDate` props to block month navigation ([#1311](https://github.com/airbnb/react-dates/pull/1311))
+- [fix][a11y] Remove space/enter onKeyDown handling for open/close keyboard shortcuts panel ([#1464](https://github.com/airbnb/react-dates/pull/1464))
+- [fix][a11y] Fix lack of visible focus in Firefox and IE on "?" keyboard shortcuts button ([#1463](https://github.com/airbnb/react-dates/pull/1463))
+
 ## 18.2.2
 - [fix] Conditionally apply the `shouldComponentUpdate` method in the babel transform ([#1457](https://github.com/airbnb/react-dates/pull/1457))
 - [fix] Fix incorrect VO for selected check-in date  ([#1451](https://github.com/airbnb/react-dates/pull/1451))
