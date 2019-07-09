@@ -106,6 +106,8 @@ const propTypes = forbidExtraProps({
   dayAriaLabelFormat: PropTypes.string,
 
   isRTL: PropTypes.bool,
+
+  onBlockedDayClicked: PropTypes.func,
 });
 
 const defaultProps = {
@@ -174,6 +176,8 @@ const defaultProps = {
   dayAriaLabelFormat: undefined,
 
   isRTL: false,
+
+  onBlockedDayClicked() {},
 };
 
 const getChooseAvailableDatePhrase = (phrases, focusedInput) => {
@@ -522,10 +526,16 @@ export default class DayPickerRangeController extends React.PureComponent {
       startDateOffset,
       endDateOffset,
       disabled,
+      onBlockedDayClicked,
     } = this.props;
 
     if (e) e.preventDefault();
-    if (this.isBlocked(day)) return;
+    if (this.isBlocked(day)) {
+      if (onBlockedDayClicked) {
+        onBlockedDayClicked(day);
+      }
+      return;
+    }
 
     let { startDate, endDate } = this.props;
 
