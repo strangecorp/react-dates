@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { css, withStyles, withStylesPropTypes } from 'react-with-styles';
+import { withStyles, withStylesPropTypes } from 'react-with-styles';
 import { Portal } from 'react-portal';
 import { forbidExtraProps } from 'airbnb-prop-types';
 import { addEventListener } from 'consolidated-events';
@@ -98,6 +98,7 @@ const defaultProps = {
 
   // month presentation and interaction related props
   renderMonthText: null,
+  renderWeekHeaderElement: null,
 
   // day presentation and interaction related props
   renderCalendarDay: undefined,
@@ -105,7 +106,7 @@ const defaultProps = {
   renderMonthElement: null,
   enableOutsideDays: false,
   isDayBlocked: () => false,
-  isOutsideRange: day => !isInclusivelyAfterDay(day, moment()),
+  isOutsideRange: (day) => !isInclusivelyAfterDay(day, moment()),
   isDayHighlighted: () => {},
 
   // internationalization props
@@ -384,6 +385,7 @@ class SingleDatePicker extends React.PureComponent {
   renderDayPicker() {
     const {
       anchorDirection,
+      css,
       openDirection,
       onDateChange,
       date,
@@ -403,6 +405,7 @@ class SingleDatePicker extends React.PureComponent {
       keepOpenOnDateSelect,
       initialVisibleMonth,
       renderMonthText,
+      renderWeekHeaderElement,
       renderCalendarDay,
       renderDayContents,
       renderCalendarInfo,
@@ -479,6 +482,7 @@ class SingleDatePicker extends React.PureComponent {
           onNextMonthClick={onNextMonthClick}
           onClose={onClose}
           renderMonthText={renderMonthText}
+          renderWeekHeaderElement={renderWeekHeaderElement}
           renderCalendarDay={renderCalendarDay}
           renderDayContents={renderDayContents}
           renderCalendarInfo={renderCalendarInfo}
@@ -519,6 +523,7 @@ class SingleDatePicker extends React.PureComponent {
 
   render() {
     const {
+      css,
       id,
       placeholder,
       ariaLabel,
