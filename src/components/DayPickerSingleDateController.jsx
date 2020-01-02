@@ -13,7 +13,6 @@ import isSameDay from '../utils/isSameDay';
 import isAfterDay from '../utils/isAfterDay';
 
 import getVisibleDays from '../utils/getVisibleDays';
-import isDayVisible from '../utils/isDayVisible';
 
 import toISODateString from '../utils/toISODateString';
 import { addModifier, deleteModifier } from '../utils/modifiers';
@@ -69,6 +68,8 @@ const propTypes = forbidExtraProps({
   navPosition: NavPositionShape,
   navPrev: PropTypes.node,
   navNext: PropTypes.node,
+  renderNavPrevButton: PropTypes.func,
+  renderNavNextButton: PropTypes.func,
 
   onPrevMonthClick: PropTypes.func,
   onNextMonthClick: PropTypes.func,
@@ -128,6 +129,8 @@ const defaultProps = {
   navPosition: NAV_POSITION_TOP,
   navPrev: null,
   navNext: null,
+  renderNavPrevButton: null,
+  renderNavNextButton: null,
 
   onPrevMonthClick() {},
   onNextMonthClick() {},
@@ -220,7 +223,6 @@ export default class DayPickerSingleDateController extends React.PureComponent {
       focused: prevFocused,
       date: prevDate,
     } = this.props;
-    let { currentMonth } = this.state;
     let { visibleDays } = this.state;
 
     let recomputeOutsideRange = false;
@@ -246,15 +248,6 @@ export default class DayPickerSingleDateController extends React.PureComponent {
       recomputeOutsideRange || recomputeDayBlocked || recomputeDayHighlighted
     );
 
-    const didDateChange = date !== prevDate;
-    const didFocusChange = focused !== prevFocused;
-
-    let isDateVisible = true;
-
-    if (didDateChange) {
-      isDateVisible = isDayVisible(date, currentMonth, numberOfMonths, enableOutsideDays);
-    }
-
     if (
       numberOfMonths !== prevNumberOfMonths
       || enableOutsideDays !== prevEnableOutsideDays
@@ -262,15 +255,19 @@ export default class DayPickerSingleDateController extends React.PureComponent {
         initialVisibleMonth !== prevInitialVisibleMonth
         && !prevFocused
         && focused
-      ) || !isDateVisible
+      )
     ) {
       const newMonthState = this.getStateForNewMonth(nextProps);
-      ({ currentMonth, visibleDays } = newMonthState);
+      const { currentMonth } = newMonthState;
+      ({ visibleDays } = newMonthState);
       this.setState({
         currentMonth,
         visibleDays,
       });
     }
+
+    const didDateChange = date !== prevDate;
+    const didFocusChange = focused !== prevFocused;
 
     let modifiers = {};
 
@@ -590,6 +587,8 @@ export default class DayPickerSingleDateController extends React.PureComponent {
       navPosition,
       navPrev,
       navNext,
+      renderNavPrevButton,
+      renderNavNextButton,
       onOutsideClick,
       onShiftTab,
       onTab,
@@ -645,6 +644,8 @@ export default class DayPickerSingleDateController extends React.PureComponent {
         navPosition={navPosition}
         navPrev={navPrev}
         navNext={navNext}
+        renderNavPrevButton={renderNavPrevButton}
+        renderNavNextButton={renderNavNextButton}
         renderMonthText={renderMonthText}
         renderWeekHeaderElement={renderWeekHeaderElement}
         renderCalendarDay={renderCalendarDay}
