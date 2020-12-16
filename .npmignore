@@ -46,3 +46,8 @@ stories
 test
 css
 !lib/css
+
+# Due to recent error when building out lib we will track a
+# compile lib folder. This may need to change in the future.
+# In which case the following line would need removing.
+!lib

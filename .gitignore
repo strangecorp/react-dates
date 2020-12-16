@@ -33,7 +33,10 @@ node_modules
 .node_repl_history
 
 # build folder
-lib
+# Due to recent error when building out lib we will track a
+# compile lib folder. This may need to change in the future.
+# In which the following line would need uncommenting.
+#lib
 esm
 .idea
 
